@@ -4,7 +4,7 @@ use App\Application\UseCases\ExportRegistration\ExportRegistration;
 use App\Domain\Entities\Registration;
 use App\Domain\ValueObjects\Cpf;
 use App\Domain\ValueObjects\Email;
-use App\Infra\Adapters\Html2PdfAdapter;
+use App\Infra\Adapters\DomPdfAdapter;
 use App\Infra\Adapters\LocalStorageAdapter;
 use App\Infra\Http\Controllers\ExportRegistrationController;
 use App\Infra\Presentation\ExportRegistrationPresenter;
@@ -46,7 +46,7 @@ $pdo = new \PDO($dsn, $appConfig['db']['username'], $appConfig['db']['password']
 ]);
 
 $loadRegistrationRepository = new PdoRegistrationRepository($pdo);
-$pdfExport = new Html2PdfAdapter();
+$pdfExport = new DomPdfAdapter();
 $storage = new LocalStorageAdapter();
 
 $uri = sprintf(
