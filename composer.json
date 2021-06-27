@@ -10,7 +10,8 @@
         "ext-pdo": "*",
         "vlucas/phpdotenv": "^5.3",
         "spipu/html2pdf": "^5.2",
-        "guzzlehttp/psr7": "^1.8"
+        "guzzlehttp/psr7": "^1.8",
+        "dompdf/dompdf": "^1.0"
     },
     "authors": [
         {
