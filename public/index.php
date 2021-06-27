@@ -8,6 +8,11 @@ use App\Domain\ValueObjects\Email;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/../');
+$dotenv->load();
+
+$appConfig = require __DIR__.'/../config/app.php';
+
 // Entities
 $registration = new Registration();
 $registration->setName('Tadeu')
