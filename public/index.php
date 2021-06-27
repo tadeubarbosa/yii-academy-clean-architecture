@@ -25,7 +25,7 @@ $registration = new Registration();
 $registration->setName('Tadeu')
     ->setEmail(new Email('tadeufbarbosa@gmail.com'))
     ->setBirthDate(new DateTimeImmutable('1994-03-24'))
-    ->setRegistrationNumber(new Cpf('12345678910'))
+    ->setRegistrationNumber(new Cpf('24809543072'))
     ->setRegistrationAt(new DateTimeImmutable('2021-03-11'));
 
 // Use cases

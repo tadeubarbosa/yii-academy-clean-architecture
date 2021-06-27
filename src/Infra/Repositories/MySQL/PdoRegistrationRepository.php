@@ -3,11 +3,13 @@
 namespace App\Infra\Repositories\MySQL;
 
 use App\Domain\Entities\Registration;
+use App\Domain\Exceptions\RegistrationNotFoundException;
 use App\Domain\Repositories\LoadRegistrationRepository;
 use App\Domain\ValueObjects\Cpf;
 use App\Domain\ValueObjects\Email;
 use DateTimeImmutable;
 use DomainException;
+use Exception;
 use PDO;
 
 class PdoRegistrationRepository implements LoadRegistrationRepository
@@ -20,7 +22,7 @@ class PdoRegistrationRepository implements LoadRegistrationRepository
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function loadByRegistrationNumber(Cpf $cpf): Registration
     {
@@ -29,7 +31,7 @@ class PdoRegistrationRepository implements LoadRegistrationRepository
         $record = $stmt->fetch();
 
         if (!$record) {
-            throw new DomainException('There\'s no one registered with this CPF');
+            throw new RegistrationNotFoundException($cpf);
         }
 
         $registration = new Registration();
