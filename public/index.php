@@ -5,6 +5,7 @@ use App\Application\UseCases\ExportRegistration\InputBoundary;
 use App\Domain\Entities\Registration;
 use App\Domain\ValueObjects\Cpf;
 use App\Domain\ValueObjects\Email;
+use App\Infra\Adapters\Html2PdfAdapter;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -23,7 +24,7 @@ $registration->setName('Tadeu')
 
 // Use cases
 $loadRegistrationRepository = new stdClass();
-$pdfExport = new stdClass();
+$pdfExport = new Html2PdfAdapter();
 $storage = new stdClass();
 
 $exportRegistrationUseCase = new ExportRegistration();
