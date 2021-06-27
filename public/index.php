@@ -1,13 +1,15 @@
 <?php
 
 use App\Application\UseCases\ExportRegistration\ExportRegistration;
-use App\Application\UseCases\ExportRegistration\InputBoundary;
 use App\Domain\Entities\Registration;
 use App\Domain\ValueObjects\Cpf;
 use App\Domain\ValueObjects\Email;
 use App\Infra\Adapters\Html2PdfAdapter;
 use App\Infra\Adapters\LocalStorageAdapter;
+use App\Infra\Http\Controllers\ExportRegistrationController;
 use App\Infra\Repositories\MySQL\PdoRegistrationRepository;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -46,6 +48,16 @@ $loadRegistrationRepository = new PdoRegistrationRepository($pdo);
 $pdfExport = new Html2PdfAdapter();
 $storage = new LocalStorageAdapter();
 
-$exportRegistrationUseCase = new ExportRegistration();
-$inputBoundary = new InputBoundary('12345678911', 'example', __DIR__.'/../storage');
-$output = $exportRegistrationUseCase->handle($inputBoundary);
+$uri = sprintf(
+    '%s://%s/%s',
+    $_SERVER['REQUEST_SCHEME'],
+    $_SERVER['SERVER_NAME'],
+    $_SERVER['REQUEST_URI'],
+);
+
+$exportRegistrationUseCase = new ExportRegistration($loadRegistrationRepository, $pdfExport, $storage);
+
+$request = new Request($_SERVER['REQUEST_METHOD'], $uri);
+$response = new Response();
+$exportRegistrationController = new ExportRegistrationController($request, $response, $exportRegistrationUseCase);
+$exportRegistrationController->handle();
