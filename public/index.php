@@ -6,6 +6,7 @@ use App\Domain\Entities\Registration;
 use App\Domain\ValueObjects\Cpf;
 use App\Domain\ValueObjects\Email;
 use App\Infra\Adapters\Html2PdfAdapter;
+use App\Infra\Adapters\LocalStorageAdapter;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -25,7 +26,7 @@ $registration->setName('Tadeu')
 // Use cases
 $loadRegistrationRepository = new stdClass();
 $pdfExport = new Html2PdfAdapter();
-$storage = new stdClass();
+$storage = new LocalStorageAdapter();
 
 $exportRegistrationUseCase = new ExportRegistration();
 $inputBoundary = new InputBoundary('12345678911', 'example', __DIR__.'/../storage');
