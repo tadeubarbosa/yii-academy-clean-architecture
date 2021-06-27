@@ -20,7 +20,7 @@ final class ExportRegistrationController
         $this->useCase = $useCase;
     }
 
-    public function handle(): string
+    public function handle(Presentation $presentation): string
     {
         $inputBoundary = new InputBoundary(
             '24809543072',
@@ -30,6 +30,8 @@ final class ExportRegistrationController
 
         $output = $this->useCase->handle($inputBoundary);
 
-        return $output->getFullFileName();
+        return $presentation->output([
+            'fullFileName' => $output->getFullFileName(),
+        ]);
     }
 }
