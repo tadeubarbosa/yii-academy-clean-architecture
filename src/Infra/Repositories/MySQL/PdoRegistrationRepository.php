@@ -34,9 +34,9 @@ class PdoRegistrationRepository implements LoadRegistrationRepository
 
         $registration = new Registration();
         $registration->setName($record['name'])
-            ->setBirthDate(new DateTimeImmutable($record['birthdate']))
+            ->setBirthDate(new DateTimeImmutable($record['birth_date']))
             ->setEmail(new Email($record['email']))
-            ->setRegistrationAt(new DateTimeImmutable($record['registration_at']))
+            ->setRegistrationAt(new DateTimeImmutable($record['created_at']))
             ->setRegistrationNumber(new Cpf($record['cpf']));
 
         return $registration;
