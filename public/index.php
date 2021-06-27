@@ -25,11 +25,24 @@ $registration = new Registration();
 $registration->setName('Tadeu')
     ->setEmail(new Email('tadeufbarbosa@gmail.com'))
     ->setBirthDate(new DateTimeImmutable('1994-03-24'))
-    ->setRegistrationNumber(new Cpf('123.456.789-12'))
+    ->setRegistrationNumber(new Cpf('12345678910'))
     ->setRegistrationAt(new DateTimeImmutable('2021-03-11'));
 
 // Use cases
-$loadRegistrationRepository = new PdoRegistrationRepository();
+$dsn = sprintf(
+    'mysql:host=%s;port=%s;dbname=%s;charset=%s',
+    $appConfig['db']['host'],
+    $appConfig['db']['port'],
+    $appConfig['db']['dbname'],
+    $appConfig['db']['charset'],
+);
+$pdo = new \PDO($dsn, $appConfig['db']['username'], $appConfig['db']['password'], [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_PERSISTENT => true,
+]);
+
+$loadRegistrationRepository = new PdoRegistrationRepository($pdo);
 $pdfExport = new Html2PdfAdapter();
 $storage = new LocalStorageAdapter();
 
