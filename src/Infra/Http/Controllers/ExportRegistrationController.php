@@ -20,18 +20,19 @@ final class ExportRegistrationController
         $this->useCase = $useCase;
     }
 
-    public function handle(Presentation $presentation): string
+    public function handle(Presentation $presentation): Response
     {
-        $inputBoundary = new InputBoundary(
-            '24809543072',
-            'example.pdf',
-            __DIR__.'/../../../../storage/registrations'
-        );
+        [$cpf, $filename, $path] = $this->request->getHeader('form_params');
+        $inputBoundary = new InputBoundary($cpf, $filename, $path);
 
         $output = $this->useCase->handle($inputBoundary);
 
-        return $presentation->output([
+        $this->response->getBody()->write($presentation->output([
             'fullFileName' => $output->getFullFileName(),
-        ]);
+        ]));
+
+        return $this->response
+            ->withHeader('Content-type', 'application/json')
+            ->withStatus(200);
     }
 }

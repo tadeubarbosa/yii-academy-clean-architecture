@@ -58,7 +58,14 @@ $uri = sprintf(
 
 $exportRegistrationUseCase = new ExportRegistration($loadRegistrationRepository, $pdfExport, $storage);
 
-$request = new Request($_SERVER['REQUEST_METHOD'], $uri);
+$headers = [
+    'form_params' => [
+        '24809543072',
+        'cliente-lorem.pdf',
+        __DIR__ . '/../storage/registrations'
+    ],
+];
+$request = new Request($_SERVER['REQUEST_METHOD'], $uri, $headers);
 $response = new Response();
 
 // Controllers
@@ -69,4 +76,4 @@ $exportRegistrationController = new ExportRegistrationController(
 );
 
 $exportRegistrationPresenter = new ExportRegistrationPresenter();
-echo $exportRegistrationController->handle($exportRegistrationPresenter);
+echo $exportRegistrationController->handle($exportRegistrationPresenter)->getBody();
