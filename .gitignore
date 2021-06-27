@@ -1,2 +1,5 @@
 vendor/
 .env
+
+storage/registrations/*
+storage/registrations/!.gitkeep
