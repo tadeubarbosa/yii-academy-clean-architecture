@@ -24,26 +24,30 @@ final class Registration
 
     /**
      * @param string $name
+     * @return Registration
      */
-    public function setName(string $name): void
+    public function setName(string $name): Registration
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
-     * @return string
+     * @return Email
      */
-    public function getEmail(): string
+    public function getEmail(): Email
     {
         return $this->email;
     }
 
     /**
-     * @param string $email
+     * @param Email $email
+     * @return Registration
      */
-    public function setEmail(string $email): void
+    public function setEmail(Email $email): Registration
     {
         $this->email = $email;
+        return $this;
     }
 
     /**
@@ -56,26 +60,30 @@ final class Registration
 
     /**
      * @param DateTimeInterface $birthDate
+     * @return Registration
      */
-    public function setBirthDate(DateTimeInterface $birthDate): void
+    public function setBirthDate(DateTimeInterface $birthDate): Registration
     {
         $this->birthDate = $birthDate;
+        return $this;
     }
 
     /**
-     * @return string
+     * @return Cpf
      */
-    public function getRegistrationNumber(): string
+    public function getRegistrationNumber(): Cpf
     {
         return $this->registrationNumber;
     }
 
     /**
-     * @param string $registrationNumber
+     * @param Cpf $registrationNumber
+     * @return Registration
      */
-    public function setRegistrationNumber(string $registrationNumber): void
+    public function setRegistrationNumber(Cpf $registrationNumber): Registration
     {
         $this->registrationNumber = $registrationNumber;
+        return $this;
     }
 
     /**
@@ -88,10 +96,12 @@ final class Registration
 
     /**
      * @param DateTimeInterface $registrationAt
+     * @return Registration
      */
-    public function setRegistrationAt(DateTimeInterface $registrationAt): void
+    public function setRegistrationAt(DateTimeInterface $registrationAt): Registration
     {
         $this->registrationAt = $registrationAt;
+        return $this;
     }
 
 }
