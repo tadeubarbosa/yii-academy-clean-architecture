@@ -7,6 +7,7 @@ use App\Domain\ValueObjects\Cpf;
 use App\Domain\ValueObjects\Email;
 use App\Infra\Adapters\Html2PdfAdapter;
 use App\Infra\Adapters\LocalStorageAdapter;
+use App\Infra\Repositories\MySQL\PdoRegistrationRepository;
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -28,7 +29,7 @@ $registration->setName('Tadeu')
     ->setRegistrationAt(new DateTimeImmutable('2021-03-11'));
 
 // Use cases
-$loadRegistrationRepository = new stdClass();
+$loadRegistrationRepository = new PdoRegistrationRepository();
 $pdfExport = new Html2PdfAdapter();
 $storage = new LocalStorageAdapter();
 
